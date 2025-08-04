@@ -5,9 +5,55 @@
  */
 
 #include <behaviors.dtsi>
+#include <dt-bindings/zmk/backlight.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/rgb.h>
 
 / {
+    macros {
+        pl: pl {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp P &kp L &kp ENTER>;
+            label = "PL";
+        };
+
+        mirr: mirr {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp M &kp I &kp R &kp R &kp SPACE &kp RET>;
+            label = "MIRR";
+        };
+
+        co: co {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp C &kp O>;
+            label = "CO";
+        };
+
+        cha: cha {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp C &kp H &kp A>;
+            label = "CHA";
+        };
+
+        ucs: ucs {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp U &kp C &kp S &kp SPACE>;
+            label = "UCS";
+        };
+
+        ob: ob {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp O &kp B &kp SPACE>;
+            label = "OB";
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -49,19 +95,19 @@
             //                    | GUI |     | SPC |   | ENT |     | ALT |
 
             bindings = <
-&kp TAB    &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR  &kp RPAR  &kp BSPC
-&kp LCTRL  &trans    &trans  &trans    &trans    &trans       &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT  &kp BSLH  &kp GRAVE
-&kp LSHFT  &trans    &trans  &trans    &trans    &trans       &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC  &kp PIPE  &kp TILDE
-                             &kp LGUI  &trans    &kp SPACE    &kp RET    &trans     &kp RALT
+&kp TAB    &kp EXCL  &kp AT  &kp HASH  &pl     &kp PRCNT    &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR  &kp RPAR  &kp BSPC
+&kp LCTRL  &trans    &trans  &trans    &trans  &trans       &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT  &kp BSLH  &kp GRAVE
+&kp LSHFT  &cha      &mirr   &co       &ucs    &ob          &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC  &kp PIPE  &kp TILDE
+                             &kp LGUI  &trans  &kp SPACE    &kp RET    &trans     &kp RALT
             >;
         };
 
         layer_3 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &kp UP_ARROW  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans        &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans        &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans          &kp UP_ARROW  &trans           &trans      &rgb_ug RGB_OFF
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp LEFT_ARROW  &kp DOWN      &kp RIGHT_ARROW  &trans      &rgb_ug RGB_ON
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &bl BL_OFF      &bl BL_ON     &bl BL_INC       &bl BL_DEC  &rgb_ug RGB_HUI
+                        &trans  &trans  &trans    &trans  &trans          &trans
             >;
         };
     };
